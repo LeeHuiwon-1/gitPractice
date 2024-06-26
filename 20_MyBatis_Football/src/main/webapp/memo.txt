@@ -1,0 +1,42 @@
+drop table football;
+create table football(
+	num number not null  primary key,
+	name varchar2(20) not null,
+	league varchar2(50) not null,
+	team varchar2(50) not null,
+	position varchar2(50) not null,
+	height number,
+	weight number,
+	grade varchar2(10)
+);
+
+drop sequence fb_seq;
+
+create sequence fb_seq
+	increment by 1
+	start with 1 
+	minvalue 1
+	maxvalue 10000
+	nocache;
+
+insert into football(num,name,league,team,position,height,weight,grade)
+values(fb_seq.nextval,'손흥민','프리미어리그','토트넘','공격수, 미드필더','183','75', '상');
+
+insert into football(num,name,league,team,position,height,weight,grade)
+values(fb_seq.nextval,'이강인','리그앙','파리생제르맹','미드필더','174','68', '상');
+
+insert into football(num,name,league,team,position,height,weight,grade)
+values(fb_seq.nextval,'김민재','분데스리가','바이에른 뮌헨','수비수','188','89', '상');
+
+
+commit;
+col num for 99
+col name for a10
+col league for a18
+col team for a8
+col position for a20
+col height for 999
+col weight for 99
+col grade for a25
+
+select * from football;

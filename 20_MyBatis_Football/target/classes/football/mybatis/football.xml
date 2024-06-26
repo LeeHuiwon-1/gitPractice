@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="football.FootBallBean">
+ 
+ 	<select id="getFootBallLists" resultType="MyFootBall" parameterType="hashmap">
+
+		select * from football
+		<if test="whatColumn == 'position'">
+			where position like #{keyword}
+		</if>
+
+		<if test="whatColumn == 'grade'">
+			where grade like #{keyword}
+		</if>
+		
+		<if test="whatColumn == 'team'">
+			where team like #{keyword}
+		</if>
+		order by num desc
+		
+	</select>
+	
+	<select id="getTotalCount" resultType="int" parameterType="hashmap">
+		select count(*) from football
+
+		<if test="whatColumn == 'position'">
+			where position like #{keyword}
+		</if>
+
+		<if test="whatColumn == 'grade'">
+			where grade like #{keyword}
+		</if>
+		
+		<if test="whatColumn == 'team'">
+			where team like #{keyword}
+		</if>
+	</select>
+	
+	
+	<insert id="insertFootBall">
+		insert into football 
+		values(fb_seq.nextval, #{name},#{league},#{team},#{position},#{height},#{weight},#{grade})
+	</insert>
+	
+	<select id="searchName" resultType="int">
+		select count(*) from football where name= #{inputName}
+	</select>
+	
+	<select id="getFootBallNum" resultType="MyFootBall">
+		select * from football where num = #{num}
+	</select>
+	
+	<update id="updateFootBall">
+		update football set
+		name = #{name}, league = #{league}, team = #{team}, position = #{position},
+		height = #{height}, weight = #{weight}, grade = #{grade} where num  = #{num}
+	</update>
+	
+	<delete id="deleteFootBall">
+		delete from football where num = #{num}
+	</delete>
+
+</mapper>
